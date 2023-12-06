@@ -2,6 +2,7 @@ using BlogApp.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using BlogApp.DataAccess.Repository.IRepository;
+using BlogApp.DataAccess.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServe
 
 builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<IUniteOfWork, IUniteOfWork>();
+builder.Services.AddScoped<IUniteOfWork, UniteOfWork>();
 var app = builder.Build();
 
 

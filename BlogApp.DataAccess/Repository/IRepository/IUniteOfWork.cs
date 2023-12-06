@@ -9,6 +9,8 @@ namespace BlogApp.DataAccess.Repository.IRepository
     public interface IUniteOfWork
     {
         ICategoryRepository Category { get; }
+        IApplicationUserRepository ApplicationUser { get; }
+        IPostRepository Post { get; }
         void Save();
     }
 }

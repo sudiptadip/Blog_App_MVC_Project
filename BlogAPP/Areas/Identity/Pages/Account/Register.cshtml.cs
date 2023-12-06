@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using BlogApp.Model.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -97,6 +98,15 @@ namespace BlogAPP.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [StringLength(50, ErrorMessage = "Minimum Length 3 And Max Length 50", MinimumLength = 3)]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+            [Required]
+            [StringLength(50, ErrorMessage = "Minimum Length 3 And Max Length 50", MinimumLength = 3)]
+            [Display(Name = "First Name")]
+            public string LastName { get; set; }
         }
 
 
@@ -113,6 +123,9 @@ namespace BlogAPP.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+
+                user.FirstName = Input.FirstName; 
+                user.LastName = Input.LastName;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -154,11 +167,11 @@ namespace BlogAPP.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private IdentityUser CreateUser()
+        private ApplicationUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<IdentityUser>();
+                return Activator.CreateInstance<ApplicationUser>();
             }
             catch
             {

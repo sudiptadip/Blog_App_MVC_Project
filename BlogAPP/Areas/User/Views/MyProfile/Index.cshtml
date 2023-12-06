@@ -1,0 +1,19 @@
+﻿<h1 class="text-center pt-3" >
+    My Profile
+</h1>
+
+<div class="container" >
+    <div class="row" >
+        <div class="col-12" >
+            <a asp-action="NewPost" class="btn btn-dark mb-3">Create Post</a>
+
+            <div class="border py-3" >
+                <h3 class="ps-3" >Name : - @ViewBag.User.FirstName</h3>
+                <h4 class="ps-3" >Name : - @ViewBag.User.Email</h4>
+            </div>
+
+            <h3 class="text-center py-4" >MY POST</h3>
+
+        </div>
+    </div>
+</div>

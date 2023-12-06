@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace BlogApp.DataAccess.Repository.IRepository
 {
-    public interface ICategoryRepository : IRepository<Category>
+    public interface IApplicationUserRepository : IRepository<ApplicationUser>
     {
-        void update(Category obj);
+        void update(ApplicationUser obj);
     }
 }
