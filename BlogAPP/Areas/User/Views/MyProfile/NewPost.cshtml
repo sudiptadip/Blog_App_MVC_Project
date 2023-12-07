@@ -19,6 +19,12 @@
             <textarea asp-for="Description" class="form-control" rows="5"></textarea>
             <span class="text-danger" asp-validation-for="Description"></span>
         </div>
+        <div class="mb-3" >
+            <label asp-for="Description" class="form-label">Select Category</label>
+            <select asp-for="CategoryId" asp-items="@ViewBag.CategoryList" class="form-select">
+                <option selected disabled >Select Category</option>
+            </select>
+        </div>
         <div>
             <button type="submit" class="btn btn-primary btn-lg">Submit</button>
         </div>

@@ -27,13 +27,36 @@ namespace BlogApp.DataAccess.Repository
         public T Get(Expression<Func<T, bool>> filter)
         {
             IQueryable<T> query = dbSet;
-            query.Where(filter);
+            query = query.Where(filter);
             return query.FirstOrDefault();
         }
 
-        public IEnumerable<T> GetAll()
+        public IEnumerable<T> GetAll(string IncludePropertyes = null)
         {
             IQueryable<T> query = dbSet;
+
+            if (!string.IsNullOrEmpty(IncludePropertyes))
+            {
+                foreach (var property in IncludePropertyes.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(property);
+                }
+            }
+
+            return query.ToList();
+        }
+
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter, string IncludePropertyes = null)
+        {
+            IQueryable<T> query = dbSet;
+            query = query.Where(filter);
+            if (!string.IsNullOrEmpty(IncludePropertyes))
+            {
+                foreach (var property in IncludePropertyes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(property);
+                }
+            }
             return query.ToList();
         }
 

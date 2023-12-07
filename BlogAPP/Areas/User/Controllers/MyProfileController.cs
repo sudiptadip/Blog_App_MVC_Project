@@ -3,6 +3,7 @@ using BlogApp.DataAccess.Repository.IRepository;
 using BlogApp.Model.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BlogAPP.Areas.User.Controllers
 {
@@ -27,17 +28,44 @@ namespace BlogAPP.Areas.User.Controllers
 
             ViewBag.User = user;
 
-            return View();
+
+            IEnumerable<Post> posts = _uniteOfWork.Post.GetAll(u => u.UserId == userId);
+
+
+            return View(posts);
         }
 
         public IActionResult NewPost()
         {
+            IEnumerable<SelectListItem> CategoryList = _uniteOfWork.Category.GetAll().Select(u => new SelectListItem
+            {
+                Text = u.CategoryName,
+                Value = u.Id.ToString(),
+            });
+            ViewBag.CategoryList = CategoryList;
             return View();
         }
 
         [HttpPost]
         public IActionResult NewPost(Post post, IFormFile file)
         {
+            IEnumerable<SelectListItem> CategoryList = _uniteOfWork.Category.GetAll().Select(u => new SelectListItem
+            {
+                Text = u.CategoryName,
+                Value = u.Id.ToString(),
+            });
+
+            ViewBag.CategoryList = CategoryList;
+
+            string userId = _userManager.GetUserId(User);           
+
+            if (userId != null)
+            {
+                post.UserId = userId;
+            }
+
+            post.CreatedAt = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 string rootPath = _webHostEnvironment.WebRootPath;
@@ -57,7 +85,7 @@ namespace BlogAPP.Areas.User.Controllers
                     _uniteOfWork.Save();
                 }
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "MyProfile");
             }
 
             return View();
