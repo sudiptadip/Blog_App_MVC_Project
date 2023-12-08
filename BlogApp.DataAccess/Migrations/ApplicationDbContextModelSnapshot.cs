@@ -40,6 +40,30 @@ namespace BlogApp.DataAccess.Migrations
                     b.ToTable("categories");
                 });
 
+            modelBuilder.Entity("BlogApp.Model.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CommentTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("comments");
+                });
+
             modelBuilder.Entity("BlogApp.Model.Models.Post", b =>
                 {
                     b.Property<int>("Id")

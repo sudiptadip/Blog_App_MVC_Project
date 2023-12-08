@@ -11,6 +11,7 @@ namespace BlogApp.DataAccess.Repository.IRepository
         ICategoryRepository Category { get; }
         IApplicationUserRepository ApplicationUser { get; }
         IPostRepository Post { get; }
+        ICommentRepository Comment { get; }
         void Save();
     }
 }

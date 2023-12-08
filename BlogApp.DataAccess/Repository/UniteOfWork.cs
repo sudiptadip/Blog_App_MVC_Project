@@ -1,9 +1,4 @@
 ﻿using BlogApp.DataAccess.Repository.IRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BlogApp.DataAccess.Repository
 {
@@ -16,12 +11,15 @@ namespace BlogApp.DataAccess.Repository
 
         public IPostRepository Post { get; private set; }
 
+        public ICommentRepository Comment { get; private set; }
+
         public UniteOfWork(ApplicationDbContext db)
         {
             _db = db;
             Category = new CategoryRepository(_db);
             ApplicationUser = new ApplicationUserRepository(_db);
             Post = new PostRepository(_db);
+            Comment = new CommentRepository(_db);
         }
 
         public void Save()

@@ -13,5 +13,6 @@ namespace BlogApp.DataAccess
         public DbSet<Category> categories { get; set; }
         public DbSet<ApplicationUser> applicationUsers { get; set; }
         public DbSet<Post> posts { get; set; }
+        public DbSet<Comment> comments { get; set; }
     }
 }

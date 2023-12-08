@@ -15,8 +15,7 @@ namespace BlogApp.Model.Models
         public int Id { get; set; }
         [Required]
         public string CommentTitle { get; set; }
-        public string UserId { get; set; }
-        [ValidateNever,ForeignKey("UserId")]
-        public ApplicationId ApplicationId { get; set; }
+        public int PostId { get; set; }
+        public string? UserId { get; set; }
     }
 }
